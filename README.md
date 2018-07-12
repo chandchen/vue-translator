@@ -2,7 +2,7 @@
 
 > A Vue.js project for Translate Online
 
-![Imgur](https://i.imgur.com/XjZ2ytf.gif)
+![Imgur](https://i.imgur.com/VzibUK5.gif)
 
 ## Build Setup
 
