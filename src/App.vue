@@ -1,7 +1,9 @@
 <template>
   <div id="app">
-    <h1>The Mist Translator</h1>
+    <h1>&#12288</h1>
+    <h1>Translate Online</h1>
     <h5 class="text-muted">Get a quick, free translation!</h5>
+    <p></p>
     <translateForm v-on:formSubmitEvent="translateText"></translateForm>
     <hr class="my-4">
     <TranslateOutput v-text="result"></TranslateOutput>

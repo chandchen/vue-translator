@@ -1,6 +1,8 @@
 # vue-translator
 
-> A Vue.js project
+> A Vue.js project for Translate Online
+
+![image](https://i.imgur.com/QWJHHOh.png)
 
 ## Build Setup
 
