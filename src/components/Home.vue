@@ -1,14 +1,12 @@
 <template>
   <div id="home">
-    <app-header v-on:titleChanged="updateTitle($event)" v-bind:title="title"></app-header>
-    <users v-bind:users="users"></users>
-    <!-- <users v-bind:users="users"></users> -->
-    <app-footer v-bind:title="title"></app-footer>
+    <img src="./../assets/logo.png"> 
+    <h1>Vue.js Demo</h1>
   </div>
 </template>
 
 <script>
-import HelloWorld from './HelloWorld'
+// import HelloWorld from './HelloWorld'
 
 
 export default {
@@ -27,7 +25,7 @@ export default {
     }
   },
   components: {
-    HelloWorld,
+    // HelloWorld,
   },
   created() {
     this.$http.get("https://jsonplaceholder.typicode.com/users")
@@ -38,9 +36,20 @@ export default {
 }
 </script>
 
+<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
-h1{
-  color: purple;
+h1, h2 {
+  font-weight: normal;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+a {
+  color: #42b983;
 }
 </style>

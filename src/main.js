@@ -5,6 +5,7 @@ import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
 import App from './App'
 import Home from './components/Home'
+import Translate from './components/Translate'
 
 Vue.config.productionTip = false
 
@@ -12,9 +13,8 @@ Vue.use(VueRouter)
 Vue.use(VueResource)
 
 
-const userHome = { template: '<div>Home</div>'}
-const userProfile = { template: '<div>Profile</div>'}
-const userPosts = { template: '<div>Posts</div>'}
+const Dictionary = { template: '<div>Dictionary is no avaiable for now :)</div>'}
+const About = { template: '<div>About is pending....</div>'}
 
 
 const router = new VueRouter({
@@ -22,8 +22,23 @@ const router = new VueRouter({
     {
       path: "/",
       name: "home",
-      component: userHome
+      component: Home
     },
+    {
+      path: "/translate",
+      name: "translate",
+      component: Translate
+    },
+    {
+      path: "/dictionary",
+      name: "dictionary",
+      component: Dictionary
+    },
+    {
+      path: "/about",
+      name: "about",
+      component: About
+    }
   ],
   mode: "history"
 })
@@ -33,5 +48,6 @@ const router = new VueRouter({
 new Vue({
   el: '#app',
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
+  router,
 })
