@@ -6,6 +6,7 @@ import VueResource from 'vue-resource'
 import App from './App'
 import Home from './components/Home'
 import Translate from './components/Translate'
+import LearnExamples from './components/LearnExamples'
 
 Vue.config.productionTip = false
 
@@ -38,6 +39,11 @@ const router = new VueRouter({
       path: "/about",
       name: "about",
       component: About
+    },
+    {
+      path: "/study",
+      name: "study",
+      component: LearnExamples
     }
   ],
   mode: "history"
