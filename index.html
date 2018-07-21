@@ -5,9 +5,20 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Hit&Run</title>
     <link rel="stylesheet" type="text/css" href="https://bootswatch.com/4/flatly/bootstrap.min.css">
+    <style type="text/css">
+      .liked {
+        background: green;
+      }
+    </style>
   </head>
   <body>
     <div id="app"></div>
+    <div id="seg">
+      <like></like>
+    </div>
+    <template id="like-component-tpl">
+      <button :class="{liked: liked}" @click='toggle_like()'>Like {{ like_count }}</button>
+    </template>
 
     <!-- built files will be auto injected -->
   </body>
