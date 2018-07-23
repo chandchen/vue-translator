@@ -79,6 +79,89 @@ Vue.component('like', {
   }
 })
 
+Vue.component('alert', {
+  template: "#alert-component-tpl",
+  props: ['msg'],
+  methods: {
+    on_click: function() {
+      alert(this.msg);
+    }
+  }
+})
+
+
+Vue.component('balance', {
+  template:
+  `
+      <div>
+        <show @showBalance="show_balance"></show>
+        <div v-if="show">Your Balance: \${{ balance }}</div>
+      </div>
+  `,
+  data: function() {
+    return {
+      show: false,
+      balance: null,
+    }
+  },
+  methods: {
+    show_balance: function(data) {
+      console.log('data', data);
+      this.show = true;
+      this.balance = data.a;
+    }
+  }
+})
+
+Vue.component('show', {
+  template: "#balance-show-tpl",
+  methods: {
+    on_click: function() {
+      this.$emit('showBalance', {a: 1, b: 2});
+    }
+  }
+})
+
+
+// Communication between two components
+
+var Event = new Vue();
+
+Vue.component('apple', {
+  template:
+  `
+  <div>
+    Apple say: <input @keyup="on_change" v-model="apple_said"></input>
+  </div>
+  `,
+  data: function() {
+    return {
+      apple_said: '',
+    }
+  },
+  methods: {
+    on_change: function() {
+      Event.$emit('saidSthEvent', this.apple_said);
+    }
+  }
+})
+
+Vue.component('banana', {
+  template: '<div>Banana say: {{ banana_said }}</div>',
+  data: function() {
+    return {
+      banana_said: '',
+    }
+  },
+  mounted: function() {
+    var _this = this;
+    Event.$on('saidSthEvent', function(data) {
+      _this.banana_said = data;
+    })
+  }
+})
+
+
 new Vue({
   el: '#seg',
 })

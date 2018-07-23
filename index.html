@@ -15,9 +15,27 @@
     <div id="app"></div>
     <div id="seg">
       <like></like>
+      <alert msg="Hahahah"></alert>
+      <balance></balance>
+      <apple></apple>
+      <banana></banana>
     </div>
     <template id="like-component-tpl">
       <button :class="{liked: liked}" @click='toggle_like()'>Like {{ like_count }}</button>
+    </template>
+    <template id="alert-component-tpl">
+      <button @click="on_click()">Click Me</button>
+    </template>
+
+    <template id="balance-tpl">
+      <div>
+        <show @showBalance="show_balance"></show>
+        <div v-if="show">Your Balance: </div>
+      </div>
+    </template>
+
+    <template id="balance-show-tpl">
+      <button @click="on_click()">Display Balance</button>
     </template>
 
     <!-- built files will be auto injected -->
