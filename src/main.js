@@ -162,6 +162,165 @@ Vue.component('banana', {
 })
 
 
+Vue.filter('currency', function(val, unit) {
+  val = val || 0;
+  unit = unit || 'USD'
+  return val + unit;
+})
+
+Vue.filter('meter', function(val, unit) {
+  val = val || 0;
+  unit = unit || 'm'
+  return (val / 1000).toFixed(2) + unit;
+})
+
 new Vue({
   el: '#seg',
+})
+
+new Vue({
+  el: '#money',
+  data: {
+    price: 10,
+    length: 10,
+  }
+})
+
+
+// user custom directive
+Vue.directive('pin', function(el, binding) {
+  var pined = binding.value;
+  var position = binding.modifiers;
+  var warning = binding.arg;
+  if (pined) {
+    el.style.position = 'fixed';
+
+    for (var key in position) {
+      if (position[key]) {
+        el.style[key] = '100px';
+      }
+    }
+    if (warning === 'true') {
+      el.style.background = 'yellow';
+    }
+    // el.style.top = '100px';
+    // el.style.left = '100px';
+  } else {
+    el.style.position = 'static';
+  }
+})
+
+new Vue({
+  el: '#custom',
+  data: {
+    card1: {
+      pined: false,
+      label: 'Pined',
+    },
+    card2: {
+      pined: false,
+      label: 'Pined',
+    }
+  },
+  methods: {
+    on_click_1: function() {
+      this.card1.pined = !this.card1.pined;
+      if (this.card1.pined) {
+        this.card1.label = 'Release';
+      } else {
+        this.card1.label = 'Pined';
+      }
+    },
+    on_click_2: function() {
+      this.card2.pined = !this.card2.pined;
+      if (this.card2.pined) {
+        this.card2.label = 'Release';
+      } else {
+        this.card2.label = 'Pined';
+      }
+    },
+  }
+})
+
+// vuejs mixins usecase
+
+var base = {
+  data: function() {
+    return {
+      visible: false,
+    }
+  },
+  methods: {
+    toggle: function() {
+      this.visible = !this.visible;
+    },
+    show: function() {
+      this.visible = true;
+    },
+    hide: function() {
+      this.visible = false;
+    }
+  }
+}
+
+Vue.component('tooltip', {
+  template: '#mixins-tooltip',
+  // data: function() {
+  //   return {
+  //     visible: false,
+  //   }
+  // },
+  // methods: {
+  //   show: function() {
+  //     this.visible = true;
+  //   },
+  //   hide: function() {
+  //     this.visible = false;
+  //   }
+  // }
+  mixins: [base],
+  // overriding mixins data here
+  data: function() {
+    return {
+      visible: true,
+    }
+  }
+})
+
+Vue.component('popup', {
+  template: '#mixins-popup',
+  // data: function() {
+  //   return {
+  //     visible: false,
+  //   }
+  // },
+  // methods: {
+  //   toggle: function() {
+  //     this.visible = !this.visible;
+  //   },
+  //   hide: function() {
+  //     this.visible = !this.visible
+  //   }
+  // }
+  mixins: [base],
+})
+
+new Vue({
+  el: '#mixins',
+  data: {
+
+  }
+})
+
+Vue.component('panel', {
+  template: '#panel-tpl',
+  
+})
+
+
+new Vue({
+  el: '#slots-example',
+  data: {
+
+  }
 })

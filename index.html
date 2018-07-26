@@ -9,6 +9,26 @@
       .liked {
         background: green;
       }
+      .card {
+        width: 250px;
+        background: #ccc;
+        padding: 10px;
+        margin: 5px;
+      }
+      .panel {
+        max-width: 300px;
+        border: 1px solid #999;
+        margin-bottom: 15px;
+      }
+      .panel > * {
+        padding: 15px;
+      }
+      .panel .title {
+        border-bottom: 1px solid #999;
+      }
+      .panel .footer {
+        border-top: 1px solid #999;
+      }
     </style>
   </head>
   <body>
@@ -20,6 +40,34 @@
       <apple></apple>
       <banana></banana>
     </div>
+
+    <div id="money">
+      <div>
+        <input type="text" name="" v-model="length">mm
+        <br>
+        {{ length | meter }}
+      </div>
+      <hr>
+      <div>
+        <input type="text" name="" v-model="price">
+        {{ price | currency('RMB') }}
+      </div>
+    </div>
+
+    <div id="custom">
+      <div v-pin:true.bottom.right='card1.pined' class="card">
+        <button @click="on_click_1()">{{ card1.label }}</button>
+        NOTE 001: ABC DEFIJKIJK
+      </div>
+      <div v-pin:false.top.right='card2.pined' class="card">
+        <button @click="on_click_2()">{{ card2.label }}</button>
+        NOTE 002: ABC DEFIJKIJK
+      </div>
+      <div>
+        dsahjdhaskdjaskl;fjsafhjksdfksdlfjhdskfjsklj
+      </div>
+    </div>
+
     <template id="like-component-tpl">
       <button :class="{liked: liked}" @click='toggle_like()'>Like {{ like_count }}</button>
     </template>
@@ -37,6 +85,63 @@
     <template id="balance-show-tpl">
       <button @click="on_click()">Display Balance</button>
     </template>
+
+    <div id="mixins">
+      <popup></popup>
+      <tooltip></tooltip>
+    </div>
+
+    <template id="mixins-tooltip">
+      <div>
+        <span @mouseenter='show' @mouseleave='hide'>Move here to see</span>
+        <div v-if="visible">
+          You can only see this when your mouse move here!
+        </div>
+      </div>
+    </template>
+
+    <template id="mixins-popup">
+      <div>
+        <button @click="toggle">Show Something</button>
+        <div v-if="visible">
+          <span @click="hide">X</span>
+          <h4>Title</h4>
+          <p>
+          The only way to actually change state in a Vuex store is by committing a mutation. Vuex mutations are very similar to events: each mutation has a string type and a handler. The handler function is where we perform actual state modifications, and it will receive the state as the first argument
+          </p>
+        </div>
+      </div>
+    </template>
+
+    <div id="slots-example">
+      <panel>
+        <div slot="content-top">
+          Yoyouyoyyy
+        </div>
+      </panel>
+      <panel>
+        <div slot="content-bottom">
+          hahahahahah
+        </div>
+      </panel>
+    </div>
+
+    <template id="panel-tpl">
+      <div class="panel">
+        <div class="title">You Title</div>
+        <div class="content">
+        <slot name="content-top"></slot>
+          [Generic Content]The only way to actually change state in a Vuex store is by committing a mutation. Vuex mutations are very similar to events: each mutation has a string type and a handler.
+        <slot name="content-bottom">Default Data</slot>
+        </div>
+        <div class="footer">For more information here</div>
+      </div>
+    </template>
+
+
+    <p>
+    <hr>
+
 
     <!-- built files will be auto injected -->
   </body>
