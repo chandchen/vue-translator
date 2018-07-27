@@ -23,6 +23,9 @@
             <li class="nav-item" :class="{active:show==4}" @click="dShow">
               <router-link class="nav-link" to="/about">About</router-link>
             </li>
+            <li class="nav-item" :class="{active:show==5}" @click="eShow">
+              <router-link class="nav-link" to="/study">Study</router-link>
+            </li>
           </ul>
           <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="text" placeholder="Search">
@@ -63,6 +66,9 @@ export default {
     },
     dShow: function() {
       this.show = 4;
+    },
+    eShow: function() {
+      this.show = 5;
     }
   }
 }
