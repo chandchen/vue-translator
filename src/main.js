@@ -7,6 +7,7 @@ import App from './App'
 import Home from './components/Home'
 import Translate from './components/Translate'
 import LearnExamples from './components/LearnExamples'
+import UsersExamples from './components/UsersExamples'
 
 Vue.config.productionTip = false
 
@@ -42,6 +43,11 @@ const router = new VueRouter({
     },
     {
       path: "/study",
+      name: "study",
+      component: LearnExamples
+    },
+    {
+      path: "/study/:name",
       name: "study",
       component: LearnExamples
     }
