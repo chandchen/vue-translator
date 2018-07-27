@@ -111,6 +111,57 @@
       </table>
     </div>
 
+    <like></like>
+    <alert msg="Say something here"></alert>
+    <balance></balance>
+    <apple></apple>
+    <banana></banana>
+
+    <div id="money">
+      <div>
+        <input type="text" name="" v-model="length">mm
+        <br>
+        {{ length | meter }}
+      </div>
+      <hr>
+      <div>
+        <input type="text" name="" v-model="price">
+        {{ price | currency('RMB') }}
+      </div>
+    </div>
+
+    <div id="custom">
+      <div v-pin:true.bottom.right='card1.pined' class="card">
+        <button @click="on_click_1()">{{ card1.label }}</button>
+        NOTE 001: ABC DEFIJKIJK
+      </div>
+      <div v-pin:false.top.right='card2.pined' class="card">
+        <button @click="on_click_2()">{{ card2.label }}</button>
+        NOTE 002: ABC DEFIJKIJK
+      </div>
+      <div>
+        dsahjdhaskdjaskl;fjsafhjksdfksdlfjhdskfjsklj
+      </div>
+    </div>
+
+    <div id="mixins">
+      <popup></popup>
+      <tooltip></tooltip>
+    </div>
+
+    <div id="slots-example">
+      <panel>
+        <div slot="content-top">
+          Yoyouyoyyy
+        </div>
+      </panel>
+      <panel>
+        <div slot="content-bottom">
+          hahahahahah
+        </div>
+      </panel>
+    </div>
+
   </div>
 </template>
 
@@ -134,6 +185,16 @@ export default {
       math: 88,
       english: 99,
       physic: 66,
+      price: 10,
+      length: 10,
+      card1: {
+        pined: false,
+        label: 'Pined',
+      },
+      card2: {
+        pined: false,
+        label: 'Pined',
+      }
     }
   },
   methods: {
@@ -146,8 +207,23 @@ export default {
     },
     onChangeUrl: function(e) {
       // this.$emit('changeUrlEvent', this.url)
-    }
-
+    },
+    on_click_1: function() {
+      this.card1.pined = !this.card1.pined;
+      if (this.card1.pined) {
+        this.card1.label = 'Release';
+      } else {
+        this.card1.label = 'Pined';
+      }
+    },
+    on_click_2: function() {
+      this.card2.pined = !this.card2.pined;
+      if (this.card2.pined) {
+        this.card2.label = 'Release';
+      } else {
+        this.card2.label = 'Pined';
+      }
+    },
   },
   components: {
 
@@ -161,6 +237,216 @@ export default {
     }
   }
 }
+
+import Vue from 'vue'
+
+Vue.component('like', {
+  template: "#like-component-tpl",
+  data: function() {
+    return {
+      like_count: 10,
+      liked: false,
+    }
+  },
+  methods: {
+    toggle_like: function() {
+      if (!this.liked) {
+        this.like_count++;
+      } else {
+        this.like_count--;
+      }
+      this.liked = !this.liked;
+    }
+  }
+})
+
+Vue.component('alert', {
+  template: "#alert-component-tpl",
+  props: ['msg'],
+  methods: {
+    on_click: function() {
+      alert(this.msg);
+    }
+  }
+})
+
+
+Vue.component('balance', {
+  template:
+  `
+      <div>
+        <show @showBalance="show_balance"></show>
+        <div v-if="show">Your Balance: \${{ balance }}</div>
+      </div>
+  `,
+  data: function() {
+    return {
+      show: false,
+      balance: null,
+    }
+  },
+  methods: {
+    show_balance: function(data) {
+      console.log('data', data);
+      this.show = true;
+      this.balance = data.a;
+    }
+  }
+})
+
+
+Vue.component('show', {
+  template: "#balance-show-tpl",
+  methods: {
+    on_click: function() {
+      this.$emit('showBalance', {a: 1, b: 2});
+    }
+  }
+})
+
+
+// Communication between two components
+var Event = new Vue();
+
+Vue.component('apple', {
+  template:
+  `
+  <div>
+    Apple say: <input @keyup="on_change" v-model="apple_said"></input>
+  </div>
+  `,
+  data: function() {
+    return {
+      apple_said: '',
+    }
+  },
+  methods: {
+    on_change: function() {
+      Event.$emit('saidSthEvent', this.apple_said);
+    }
+  }
+})
+
+Vue.component('banana', {
+  template: '<div>Banana say: {{ banana_said }}</div>',
+  data: function() {
+    return {
+      banana_said: '',
+    }
+  },
+  mounted: function() {
+    var _this = this;
+    Event.$on('saidSthEvent', function(data) {
+      _this.banana_said = data;
+    })
+  }
+})
+
+
+Vue.filter('currency', function(val, unit) {
+  val = val || 0;
+  unit = unit || 'USD'
+  return val + unit;
+})
+
+Vue.filter('meter', function(val, unit) {
+  val = val || 0;
+  unit = unit || 'm'
+  return (val / 1000).toFixed(2) + unit;
+})
+
+
+// user custom directive
+Vue.directive('pin', function(el, binding) {
+  var pined = binding.value;
+  var position = binding.modifiers;
+  var warning = binding.arg;
+  if (pined) {
+    el.style.position = 'fixed';
+
+    for (var key in position) {
+      if (position[key]) {
+        el.style[key] = '100px';
+      }
+    }
+    if (warning === 'true') {
+      el.style.background = 'yellow';
+    }
+    // el.style.top = '100px';
+    // el.style.left = '100px';
+  } else {
+    el.style.position = 'static';
+  }
+})
+
+// vuejs mixins usecase
+var base = {
+  data: function() {
+    return {
+      visible: false,
+    }
+  },
+  methods: {
+    toggle: function() {
+      this.visible = !this.visible;
+    },
+    show: function() {
+      this.visible = true;
+    },
+    hide: function() {
+      this.visible = false;
+    }
+  }
+}
+
+Vue.component('tooltip', {
+  template: '#mixins-tooltip',
+  // data: function() {
+  //   return {
+  //     visible: false,
+  //   }
+  // },
+  // methods: {
+  //   show: function() {
+  //     this.visible = true;
+  //   },
+  //   hide: function() {
+  //     this.visible = false;
+  //   }
+  // }
+  mixins: [base],
+  // overriding mixins data here
+  data: function() {
+    return {
+      visible: true,
+    }
+  }
+})
+
+Vue.component('popup', {
+  template: '#mixins-popup',
+  // data: function() {
+  //   return {
+  //     visible: false,
+  //   }
+  // },
+  // methods: {
+  //   toggle: function() {
+  //     this.visible = !this.visible;
+  //   },
+  //   hide: function() {
+  //     this.visible = !this.visible
+  //   }
+  // }
+  mixins: [base],
+})
+
+
+Vue.component('panel', {
+  template: '#panel-tpl',
+  
+})
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

@@ -33,40 +33,6 @@
   </head>
   <body>
     <div id="app"></div>
-    <div id="seg">
-      <like></like>
-      <alert msg="Hahahah"></alert>
-      <balance></balance>
-      <apple></apple>
-      <banana></banana>
-    </div>
-
-    <div id="money">
-      <div>
-        <input type="text" name="" v-model="length">mm
-        <br>
-        {{ length | meter }}
-      </div>
-      <hr>
-      <div>
-        <input type="text" name="" v-model="price">
-        {{ price | currency('RMB') }}
-      </div>
-    </div>
-
-    <div id="custom">
-      <div v-pin:true.bottom.right='card1.pined' class="card">
-        <button @click="on_click_1()">{{ card1.label }}</button>
-        NOTE 001: ABC DEFIJKIJK
-      </div>
-      <div v-pin:false.top.right='card2.pined' class="card">
-        <button @click="on_click_2()">{{ card2.label }}</button>
-        NOTE 002: ABC DEFIJKIJK
-      </div>
-      <div>
-        dsahjdhaskdjaskl;fjsafhjksdfksdlfjhdskfjsklj
-      </div>
-    </div>
 
     <template id="like-component-tpl">
       <button :class="{liked: liked}" @click='toggle_like()'>Like {{ like_count }}</button>
@@ -85,11 +51,6 @@
     <template id="balance-show-tpl">
       <button @click="on_click()">Display Balance</button>
     </template>
-
-    <div id="mixins">
-      <popup></popup>
-      <tooltip></tooltip>
-    </div>
 
     <template id="mixins-tooltip">
       <div>
@@ -113,19 +74,6 @@
       </div>
     </template>
 
-    <div id="slots-example">
-      <panel>
-        <div slot="content-top">
-          Yoyouyoyyy
-        </div>
-      </panel>
-      <panel>
-        <div slot="content-bottom">
-          hahahahahah
-        </div>
-      </panel>
-    </div>
-
     <template id="panel-tpl">
       <div class="panel">
         <div class="title">You Title</div>
@@ -138,10 +86,8 @@
       </div>
     </template>
 
-
     <p>
     <hr>
-
 
     <!-- built files will be auto injected -->
   </body>
