@@ -4,7 +4,8 @@
       <li v-for='user in users' @click='user.show=!user.show'>
         <h5>{{ user.name }}</h5>
         <router-link :to="'/about/' + user.username + '/more'">Click More</router-link>
-      <router-view :user="user"></router-view>
+        <!-- <router-link to="more" append>Click More</router-link> -->
+        <router-view :user="user"></router-view>
       </li>
     </ul>
 

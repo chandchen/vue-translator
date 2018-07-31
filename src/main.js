@@ -11,6 +11,7 @@ import UsersExamples from './components/UsersExamples'
 import AboutInfo from './components/AboutInfo'
 import store from './store/store'
 import UserProfile from './components/UserProfile'
+import Count from './components/Count'
 
 Vue.config.productionTip = false
 
@@ -62,6 +63,11 @@ const router = new VueRouter({
       path: "/study/:name",
       name: "study",
       component: LearnExamples
+    },
+    {
+      path: "/vuex",
+      name: "vuex",
+      component: Count
     }
   ],
   mode: "history"
@@ -74,4 +80,5 @@ new Vue({
   components: { App },
   template: '<App/>',
   router,
+  store,
 })

@@ -26,6 +26,9 @@
             <li class="nav-item" :class="{active:show==5}" @click="eShow">
               <router-link class="nav-link" to="/study">Study</router-link>
             </li>
+            <li class="nav-item" :class="{active:show==6}" @click="fShow">
+              <router-link class="nav-link" to="/vuex">Vuex</router-link>
+            </li>
           </ul>
           <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="text" placeholder="Search">
@@ -69,6 +72,9 @@ export default {
     },
     eShow: function() {
       this.show = 5;
+    },
+    fShow: function() {
+      this.show = 6;
     }
   }
 }
