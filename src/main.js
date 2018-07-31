@@ -10,6 +10,7 @@ import LearnExamples from './components/LearnExamples'
 import UsersExamples from './components/UsersExamples'
 import AboutInfo from './components/AboutInfo'
 import store from './store/store'
+import UserProfile from './components/UserProfile'
 
 Vue.config.productionTip = false
 
@@ -49,9 +50,7 @@ const router = new VueRouter({
       children: [
       {
         path: 'more',
-        component: {
-          template: '<div>hahahah - {{ $route.params.name }}</div>'
-        }
+        component: UserProfile
       }]
     },
     {

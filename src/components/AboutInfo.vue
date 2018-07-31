@@ -5,9 +5,6 @@
       <input type="text" name="" placeholder="Text title here...">
       <button type="submit">Change Title</button>
     </form>
-    <div>{{ $route.params.name }}</div>
-    <router-link :to="/about/" + $route.params.name + "/more">Click More</router-link>
-    <router-view></router-view>
 
     <users :users="users"></users>
 

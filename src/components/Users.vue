@@ -1,13 +1,14 @@
 <template>
   <div class="users">
-  <h1>Hello Users!</h1>
     <ul>
-      <li v-for='user in users' v-on:click='user.show=!user.show'>
-        <h4>{{ user.name }}</h4>
+      <li v-for='user in users' @click='user.show=!user.show'>
+        <h5>{{ user.name }}</h5>
+        <router-link :to="'/about/' + user.username + '/more'">Click More</router-link>
+      <router-view :user="user"></router-view>
       </li>
     </ul>
 
-    <button v-on:click="deleteUser">Delete</button>
+    <button @click="deleteUser">Delete</button>
 
   </div>
 </template>
@@ -46,8 +47,8 @@ ul{
 }
 li{
   flex-grow: 1;
-  flex-basis: 200px;
-  text-align: center;
+  flex-basis: 300px;
+  text-align: left;
   padding: 30px;
   border: 1px solid #222;
   margin: 10px;

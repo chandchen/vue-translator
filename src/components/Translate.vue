@@ -1,6 +1,5 @@
 <template>
   <div id="translate">
-    <h1>&#12288</h1>
     <h1>Translate Online</h1>
     <h5 class="text-muted">Get a quick, free translation!</h5>
     <p></p>
